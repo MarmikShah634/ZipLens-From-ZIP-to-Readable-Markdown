@@ -92,7 +92,7 @@ export default function App() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="text-4xl font-extrabold text-center mb-6 bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent"
         >
-          📦 Zip2Markdown
+          📦 ZipLens
         </motion.h1>
 
         {!files.length && (
