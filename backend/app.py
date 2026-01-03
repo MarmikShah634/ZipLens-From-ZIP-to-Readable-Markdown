@@ -105,11 +105,6 @@ async def generate_md(request: GenerateRequest):
             tmp_md_path, 
             media_type="text/markdown", 
             filename="output.md",
-            background=None
         )
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=500)
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("app:app", host="127.0.0.1", port=8000, reload=True)
