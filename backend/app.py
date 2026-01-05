@@ -19,8 +19,8 @@ class SessionData(TypedDict):
     files_map: dict[str, str]
     expires_at: datetime
 
-ALLOWED_ORIGINS = [origin for origin in os.getenv("ALLOWED_ORIGINS", "*").split(",") if origin]
-MAX_ZIP_SIZE_BYTES = int(os.getenv("MAX_ZIP_SIZE_BYTES", str(50 * 1024 * 1024)))
+ALLOWED_ORIGINS = [origin for origin in os.getenv("ALLOWED_ORIGINS", "").split(",") if origin]
+MAX_ZIP_SIZE_BYTES = int(os.getenv("MAX_ZIP_SIZE_BYTES", str(10 * 1024 * 1024)))
 SESSION_TTL_SECONDS = int(os.getenv("SESSION_TTL_SECONDS", str(15 * 60)))
 RATE_LIMIT_WINDOW_SECONDS = int(os.getenv("RATE_LIMIT_WINDOW_SECONDS", str(60)))
 LIST_FILES_RATE_LIMIT = int(os.getenv("LIST_FILES_RATE_LIMIT", str(5)))

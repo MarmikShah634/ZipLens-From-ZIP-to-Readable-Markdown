@@ -7,17 +7,23 @@ interface Props {
   onFilesListed: (tree: any, base64: string) => void;
 }
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+
 const ZipUploader: React.FC<Props> = ({ onFilesListed }) => {
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.type !== "application/x-zip-compressed" && !file.name.endsWith(".zip")) {
+    if (
+      file.type !== "application/x-zip-compressed" &&
+      !file.name.endsWith(".zip")
+    ) {
       toast.error("Please upload a valid ZIP file.");
       return;
     }
 
-    if (file.size > 50 * 1024 * 1024) {
+    if (file.size > 10 * 1024 * 1024) {
       toast.error("ZIP file must be under 50MB.");
       return;
     }
@@ -26,7 +32,7 @@ const ZipUploader: React.FC<Props> = ({ onFilesListed }) => {
     formData.append("zipfile", file);
 
     try {
-      const res = await fetch("http://localhost:5000/upload", {
+      const res = await fetch(`${API_BASE_URL}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -55,7 +61,12 @@ const ZipUploader: React.FC<Props> = ({ onFilesListed }) => {
       <label className="flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-xl shadow-md cursor-pointer transition-all">
         <Upload className="w-5 h-5" />
         Upload ZIP
-        <input type="file" className="hidden" accept=".zip" onChange={handleUpload} />
+        <input
+          type="file"
+          className="hidden"
+          accept=".zip"
+          onChange={handleUpload}
+        />
       </label>
     </motion.div>
   );

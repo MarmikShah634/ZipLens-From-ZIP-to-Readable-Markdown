@@ -172,7 +172,7 @@ export default function UploadZone({ onUpload, loading }: UploadZoneProps) {
         transition={{ delay: 0.8 }}
         className="text-center text-xs text-gray-600 mt-6 max-w-xs"
       >
-        Supports ZIP files up to 50MB • Your files are processed locally and
+        Supports ZIP files up to 10MB • Your files are processed locally and
         never stored
       </motion.p>
     </motion.div>
