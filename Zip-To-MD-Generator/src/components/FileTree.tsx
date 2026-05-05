@@ -87,39 +87,6 @@ const FileTree: React.FC<FileTreeProps> = ({ files, selected, setSelected }) => 
     return descendantFiles.every(filePath => selected.includes(filePath));
   };
 
-  // Update parent checkboxes based on children state
-  const updateParentStates = (newSelected: string[]) => {
-    const updatedSelected = [...newSelected];
-    
-    const processNode = (node: FileNode): boolean => {
-      if (!node.children) {
-        return updatedSelected.includes(node.path);
-      }
-      
-      // Check children first (bottom-up)
-      const childStates = node.children.map(child => processNode(child));
-      const allChildrenSelected = childStates.every(state => state);
-      
-      if (allChildrenSelected) {
-        // All children are selected, so parent should be selected
-        if (!updatedSelected.includes(node.path)) {
-          updatedSelected.push(node.path);
-        }
-      } else {
-        // Not all children are selected, so parent should not be selected
-        const index = updatedSelected.indexOf(node.path);
-        if (index > -1) {
-          updatedSelected.splice(index, 1);
-        }
-      }
-      
-      return allChildrenSelected;
-    };
-    
-    tree.forEach(rootNode => processNode(rootNode));
-    return updatedSelected;
-  };
-
   // Handle file (leaf) checkbox toggle
   const toggleFile = (path: string) => {
     let newSelected: string[];
@@ -129,9 +96,7 @@ const FileTree: React.FC<FileTreeProps> = ({ files, selected, setSelected }) => 
       newSelected = [...selected, path];
     }
     
-    // Update parent states based on children
-    const finalSelected = updateParentStates(newSelected);
-    setSelected(finalSelected);
+    setSelected(newSelected);
   };
 
   // Handle folder checkbox toggle
